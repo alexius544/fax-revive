@@ -4,7 +4,7 @@
 
 --- Config ---
 
-local bypassRoles = { -- Discord Role ID(s) that can bypass the revive/respawn wait time. Leave this as it is if you don't want this function.
+local bypassRoles = { -- Discord Role ID(s) that can bypass the revive/respawn wait time. Leave this EMPTY if you DO NOT want discord perms
     --"987194867597852724"
 }
 
