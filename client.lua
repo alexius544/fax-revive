@@ -1,60 +1,74 @@
 --------------------------------
---- RP Revive, Made by FAXES ---
+--- FaxRevive, Made by FAXES ---
 --------------------------------
 
---- Config ---
-
-local reviveTimer = 10 -- Change the amount of time to wait before allowing revive (in seconds)
-local respawnTimer = 5 -- Change the amount of time to wait before allowing revive (in seconds)
-local reviveColor = "~y~" -- Color used for revive button
-local respawnColor = "~r~" -- Color used for respawn button
-local chatColor = "~b~" -- The chat color overall
--- Add/remove spawn points at line 77
-
 --- Code ---
-timerCount1 = reviveTimer
-timerCount2 = respawnTimer
+timerCount1 = config.reviveTimer
+timerCount2 = config.respawnTimer
 isDead = false
 cHavePerms = false
 
-AddEventHandler('playerSpawned', function()
-    local src = source
-    TriggerServerEvent("RPRevive:CheckPermission", src)
-end)
+-- Create spawn points here!
+local spawnPoints = {}
+function createSpawnPoint(x, y, z, heading)
+	local newObject = {
+		x = x,
+		y = y,
+		z = z,
+		heading = heading
+	}
+	
+	table.insert(spawnPoints, newObject)
+end
+-- Add spawn points here... format: createSpawnPoint(x, y, z, heading)
+createSpawnPoint(1828.44, 3692.32, 34.22, 37.12) -- Back of Sandy Shores Hospital
 
-RegisterNetEvent("RPRevive:CheckPermission:Return")
-AddEventHandler("RPRevive:CheckPermission:Return", function(havePerms)
-	cHavePerms = havePerms
-end)
+if config.usePerms then
+	AddEventHandler('playerSpawned', function()
+		local src = source
+		TriggerServerEvent("FaxRevive:CheckPermission", src)
+	end)
+
+	RegisterNetEvent("FaxRevive:CheckPermission:Return")
+	AddEventHandler("FaxRevive:CheckPermission:Return", function(havePerms)
+		cHavePerms = havePerms
+	end)
+end
 
 -- Turn off automatic respawn here instead of updating FiveM file.
 AddEventHandler('onClientMapStart', function()
-	Citizen.Trace("RPRevive: Disabling the autospawn.")
+	Citizen.Trace("FaxRevive: Disabling the autospawn.")
 	exports.spawnmanager:spawnPlayer() -- Ensure player spawns into server.
 	Citizen.Wait(2500)
 	exports.spawnmanager:setAutoSpawn(false)
-	Citizen.Trace("RPRevive: Autospawn is disabled.")
+	Citizen.Trace("FaxRevive: Autospawn is disabled.")
 end)
 
-function respawnPed(ped, coords)
-	isDead = false
-	timerCount1 = reviveTimer
-	timerCount2 = respawnTimer
-	SetEntityCoordsNoOffset(ped, coords.x, coords.y, coords.z, false, false, false, true)
-	NetworkResurrectLocalPlayer(coords.x, coords.y, coords.z, coords.heading, true, false) 
-	SetPlayerInvincible(ped, false) 
-	TriggerEvent('playerSpawned', coords.x, coords.y, coords.z, coords.heading)
-	ClearPedBloodDamage(ped)
+-- Checks for settings (1 = revive only OR 3 = both) and sets up revive/respawn functions.
+if config.scriptSetting == 1 or config.scriptSetting == 3 then
+	function revivePed(ped)
+		isDead = false
+		timerCount1 = reviveTimer
+		timerCount2 = respawnTimer
+		local playerPos = GetEntityCoords(ped, true)
+		NetworkResurrectLocalPlayer(playerPos, true, true, false)
+		SetPlayerInvincible(ped, false)
+		ClearPedBloodDamage(ped)
+	end
 end
 
-function revivePed(ped)
-	isDead = false
-	timerCount1 = reviveTimer
-	timerCount2 = respawnTimer
-	local playerPos = GetEntityCoords(ped, true)
-	NetworkResurrectLocalPlayer(playerPos, true, true, false)
-	SetPlayerInvincible(ped, false)
-	ClearPedBloodDamage(ped)
+-- Checks for settings (2 = respawn only OR 3 = both) and sets up revive/respawn functions.
+if config.scriptSetting == 2 or config.scriptSetting == 3 then
+	function respawnPed(ped, coords)
+		isDead = false
+		timerCount1 = reviveTimer
+		timerCount2 = respawnTimer
+		SetEntityCoordsNoOffset(ped, coords.x, coords.y, coords.z, false, false, false, true)
+		NetworkResurrectLocalPlayer(coords.x, coords.y, coords.z, coords.heading, true, false) 
+		SetPlayerInvincible(ped, false) 
+		TriggerEvent('playerSpawned', coords.x, coords.y, coords.z, coords.heading)
+		ClearPedBloodDamage(ped)
+	end
 end
 
 function ShowInfoRevive(text)
@@ -64,20 +78,6 @@ function ShowInfoRevive(text)
 end
 
 Citizen.CreateThread(function()
-	local spawnPoints = {}
-
-	function createSpawnPoint(x, y, z, heading)
-		local newObject = {
-			x = x,
-			y = y,
-			z = z,
-			heading = heading
-		}
-
-		table.insert(spawnPoints, newObject)
-	end
-
-	createSpawnPoint(1828.44, 3692.32, 34.22, 37.12) -- Back of Sandy Shores Hospital
     while true do
     	Citizen.Wait(0)
 		ped = GetPlayerPed(-1)
@@ -85,7 +85,7 @@ Citizen.CreateThread(function()
 			isDead = true
             SetPlayerInvincible(ped, true)
             SetEntityHealth(ped, 1)
-			ShowInfoRevive(chatColor .. 'You are dead. Use ' .. reviveColor .. 'E ' .. chatColor ..'to revive or ' .. respawnColor .. 'R ' .. chatColor .. 'to respawn.')
+			ShowInfoRevive(chatColor .. 'You are dead.\nUse ' .. reviveColor .. 'E ' .. chatColor ..'to revive or ' .. respawnColor .. 'R ' .. chatColor .. 'to respawn.')
             if IsControlJustReleased(0, 38) and GetLastInputMethod(0) then
                 if timerCount1 == 0 or cHavePerms then
                     revivePed(ped)
