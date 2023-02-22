@@ -17,7 +17,7 @@ FaxRevive is a new style Revive script, inspired by DoJ’s revive script this s
 
 **Credits:**
 - FAXES
-- Astra 
+- Scentral 
 - Alexius544 (edits)
 
 <br />
