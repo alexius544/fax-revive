@@ -22,6 +22,6 @@ FaxRevive is a new style Revive script, inspired by DoJ’s revive script this s
 
 <br />
 
-[![FiveM](https://faxes.zone/i/r5byi.png)][5mlink]
+[![FiveM](https://weblutions.com/i/r5byi.png)][5mlink]
 
 [5mlink]: https://forum.cfx.re/t/130876
