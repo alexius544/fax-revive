@@ -1,0 +1,1 @@
+- Add /revive and /respawn command with information on respawn & revive timer

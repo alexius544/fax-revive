@@ -8,6 +8,8 @@ timerCount2 = config.respawnTimer
 isDead = false
 cHavePerms = false
 
+-- for _, Station in pairs(Config.LEOStations) do
+
 -- Create spawn points here!
 local spawnPoints = {}
 function createSpawnPoint(x, y, z, heading)
