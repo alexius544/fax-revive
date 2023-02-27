@@ -56,6 +56,9 @@ if config.scriptSetting == 1 or config.scriptSetting == 3 then
 		NetworkResurrectLocalPlayer(playerPos, true, true, false)
 		SetPlayerInvincible(ped, false)
 		ClearPedBloodDamage(ped)
+		if config.armourSetting == 1 or config.armourSetting == 3 then
+			SetPedArmour(ped, config.armourAmount)
+		end
 	end
 end
 
@@ -70,6 +73,9 @@ if config.scriptSetting == 2 or config.scriptSetting == 3 then
 		SetPlayerInvincible(ped, false) 
 		TriggerEvent('playerSpawned', coords.x, coords.y, coords.z, coords.heading)
 		ClearPedBloodDamage(ped)
+		if config.armourSetting == 2 or config.armourSetting == 3 then
+			SetPedArmour(ped, config.armourAmount)
+		end
 	end
 end
 

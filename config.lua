@@ -18,9 +18,14 @@ config = {
     chatColor = "~b~", -- The chat color overall
 
     -- Set Armour Function
-    respawnSetting = 3, -- Set armour here: 1 = Revive ONLY, 2 = Respawn ONLY, 3 = Both Respawn & Revive (default)
-    setArmour = true, -- Set to true if you want to set the player's armour to 100 when they respawn, false if not
+    armourSetting = 3, -- Set armour here: 0 = None, 1 = Revive ONLY, 2 = Respawn ONLY, 3 = Both Respawn & Revive (default)
     armourAmount = 100 -- Change the amount of armour to give the player when they respawn. If the above is false, this value is nullified
+
+    -- Respawn Points
+    spawnPoints = { -- Format: { x = 0.0, y = 0.0, z = 0.0, heading = 0.0 }
+        { x = 0.0, y = 0.0, z = 0.0, heading = 0.0 },
+        { x = 0.0, y = 0.0, z = 0.0, heading = 0.0 }
+    },
 
     -- Discord Perms
     usePerms = true, -- Set to true if you want to use the discord perms, false if not
