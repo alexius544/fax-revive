@@ -61,6 +61,7 @@ function ShowInfoRevive(text)
 	SetNotificationTextEntry("STRING")
 	AddTextComponentSubstringPlayerName(text)
 	DrawNotification(true, true)
+	print('showing revive info')
 end
 
 Citizen.CreateThread(function()
