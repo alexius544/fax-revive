@@ -18,7 +18,7 @@ if config.usePerms then
             local roleIDs = exports.Badger_Discord_API:GetDiscordRoles(src)
             if not (roleIDs == false) then
                 for i = 1, #roleIDs do
-                    if exports.Badger_Discord_API:CheckEqual(bypassRoles[i][1], roleIDs[j]) and i ~= 1 then
+                    if exports.Badger_Discord_API:CheckEqual(config.bypassRoles[i][1], roleIDs[j]) and i ~= 1 then
                         TriggerClientEvent("FaxRevive:CheckPermission:Return", src, true)
                         count = count + 1
                         break
