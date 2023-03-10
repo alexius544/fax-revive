@@ -5,8 +5,9 @@
 --- Config ---
 
 config = {
+
     -- Revive/Respawn Settings
-    scriptSetting = 3, -- 1 = Revive ONLY, 2 = Respawn ONLY, 3 = Both Respawn & Revive (default)
+    scriptSetting = 3, -- 1 = Revive ONLY, 2 = Respawn ONLY, 3 = Both Respawn & Revive (default)    
 
     -- Revive Timer Values (in seconds)
     reviveTimer = 10, -- Change the amount of time to wait before allowing revive
@@ -33,4 +34,7 @@ config = {
         { "roleID", "roleName" }, -- Add as many roles as you want here, using the format below
         { "roleID", "roleName" }
     },
+
+    -- Debug
+    debug = false -- Set to true if you want to see debug messages in the console, false if not
 }

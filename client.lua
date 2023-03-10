@@ -39,11 +39,15 @@ end
 
 -- Turn off automatic respawn here instead of updating FiveM file.
 AddEventHandler('onClientMapStart', function()
-	Citizen.Trace("FaxRevive: Disabling the autospawn.")
+	if config.debug then
+		Citizen.Trace("[DEBUG] FaxRevive: Disabling the autospawn.")
+	end
 	exports.spawnmanager:spawnPlayer() -- Ensure player spawns into server.
-	Citizen.Wait(2500)
-	exports.spawnmanager:setAutoSpawn(false)
-	Citizen.Trace("FaxRevive: Autospawn is disabled.")
+	Citizen.Wait(2500) -- Wait before disabling autospawn to ensure it loads properly.
+	exports.spawnmanager:setAutoSpawn(false) -- Disable autospawn.
+	if config.debug then
+		Citizen.Trace("[DEBUG] FaxRevive: Autospawn has now been disabled.")
+	end
 end)
 
 -- Checks for settings (1 = revive only OR 3 = both) and sets up revive/respawn functions.
@@ -58,6 +62,9 @@ if config.scriptSetting == 1 or config.scriptSetting == 3 then
 		ClearPedBloodDamage(ped)
 		if config.armourSetting == 1 or config.armourSetting == 3 then
 			SetPedArmour(ped, config.armourAmount)
+		end
+		if config.debug then
+			Citizen.Trace("[DEBUG] FaxRevive: Player revived.")
 		end
 	end
 end
@@ -75,6 +82,9 @@ if config.scriptSetting == 2 or config.scriptSetting == 3 then
 		ClearPedBloodDamage(ped)
 		if config.armourSetting == 2 or config.armourSetting == 3 then
 			SetPedArmour(ped, config.armourAmount)
+		end
+		if config.debug then
+			Citizen.Trace("[DEBUG] FaxRevive: Player respawned.")
 		end
 	end
 end
