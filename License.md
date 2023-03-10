@@ -21,6 +21,4 @@ Therefore, responsibility for any damages caused by this product or its misuse r
 So basically you can edit anything with the product (except the terms), but you can not release the product nor release the edited version without written permission from FAXES. 
 
 #### Further Help
-http://faxes.zone/discord
-
-![alt text](http://faxes.zone/TOSlogos/FAXES%20ToUSML.png "FAXES ToU Icon")
+http://weblutions.com/discord
