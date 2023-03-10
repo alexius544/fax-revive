@@ -13,7 +13,7 @@ fx_version 'bodacious'
 game 'gta5'
 
 author 'FAXES/Astra'
-version 1.1
+version '1.1'
 description 'DOJ ispired revive/respawn script.'
 
 shared_script 'config.lua'
