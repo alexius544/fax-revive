@@ -1,3 +1,0 @@
-- Add /revive and /respawn command with information on respawn & revive timer
-- create function for cuffing when dead and putting on the death emote (get from Andyyy development revive)
-- Add spawn locations to the config and use the sem_interaction menu thing for array of spawn locations
