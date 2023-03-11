@@ -2,7 +2,8 @@
 --- FaxRevive, Made by FAXES ---
 --------------------------------
 
-logWebhook = "https://discord.com/api/webhooks/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+-- WE RECOMMEND NOT EDITING THIS FILE UNLESS YOU KNOW WHAT YOU'RE DOING.
+-- STAY IN THE CONFIG.LUA FILE! :)
 
 --- Code ---
 if config.usePerms then 
