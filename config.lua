@@ -14,7 +14,6 @@ config = {
     reviveColor = "~g~", -- Color used for revive button
     respawnColor = "~b~", -- Color used for respawn button
     chatColor = "~w~", -- The chat color overall
-    displayNoti = true, -- Set to true if you want to display a notification when respawned/revived, false if not
 
     -- Set Armour Function
     armourSetting = 3, -- Set armour here: 0 = None, 1 = Revive ONLY, 2 = Respawn ONLY, 3 = Both Respawn & Revive (default)
