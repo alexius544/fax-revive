@@ -4,7 +4,22 @@
 
 config = {
     -- Revive/Respawn Settings
-    scriptSetting = 3, -- 1 = Revive ONLY, 2 = Respawn ONLY, 3 = Both Respawn & Revive (default)    
+    scriptSetting = 3, -- 1 = Revive ONLY, 2 = Respawn ONLY, 3 = Both Respawn & Revive (default)
+    deathAnimation = true, 
+    -- Enable/disable animation that is played once dead. 
+    -- This will improve syncing and show players where they are actually dead. This will revive, run animation, and 'kill' the player again.
+    -- During the animation, the player can't move, or pull out weapons.
+
+    -- Command Settings
+    commandSettings = 3, -- 1 = Revive ONLY, 2 = Respawn ONLY, 3 = Both Respawn & Revive (default)
+    reviveCommand = {
+        name = "revive", -- Command Name
+        description = "teast revive" -- Command Description
+    }
+    respawnCommand = {
+        name = "respawn", -- Command Name
+        description = "teast respawn" -- Command Description
+    }
 
     -- Revive Timer Values (in seconds)
     reviveTimer = 10, -- Change the amount of time to wait before allowing revive
