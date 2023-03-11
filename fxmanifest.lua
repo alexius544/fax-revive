@@ -9,10 +9,10 @@
     - Github: https://github.com/FAXES
 --]]
 
-fx_version 'bodacious'
+fx_version 'cerulean'
 game 'gta5'
 
-author 'FAXES/Astra'
+author 'FAXES'
 version '1.1'
 description 'DOJ ispired revive/respawn script.'
 
