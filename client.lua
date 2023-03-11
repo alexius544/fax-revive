@@ -8,7 +8,14 @@ isDead = false
 cHavePerms = false
 spawnPoints = config.spawnPoints
 
--- Checking for permissions
+-- Create notification text.
+function ShowInfoMsg(text)
+	SetNotificationTextEntry("STRING")
+	AddTextComponentSubstringPlayerName(text)
+	DrawNotification(true, true)
+end
+
+-- Checking for permissions.
 if config.usePerms then
 	AddEventHandler('playerSpawned', function()
 		local src = source
@@ -44,11 +51,21 @@ if config.scriptSetting == 1 or config.scriptSetting == 3 then
 		NetworkResurrectLocalPlayer(playerPos, true, true, false)
 		SetPlayerInvincible(ped, false)
 		ClearPedBloodDamage(ped)
+		if config.showNoti then
+			ShowInfoMsg('~g~You have been revived successfully!')
+		end
 		if config.armourSetting == 1 or config.armourSetting == 3 then
 			SetPedArmour(ped, config.armourAmount)
+			if config.debug then
+				Citizen.Trace("[DEBUG] FaxRevive: Player armour set to " .. config.armourAmount .. ".")
+			end
 		end
 		if config.debug then
-			Citizen.Trace("[DEBUG] FaxRevive: Player revived.")
+			if cHavePerms then
+				Citizen.Trace("[DEBUG] FaxRevive: Player revived. (Has Staff Permissions)")
+			else
+				Citizen.Trace("[DEBUG] FaxRevive: Player revived.")
+			end
 		end
 	end
 end
@@ -65,22 +82,23 @@ if config.scriptSetting == 2 or config.scriptSetting == 3 then
 		SetPlayerInvincible(ped, false) 
 		TriggerEvent('playerSpawned', coords.x, coords.y, coords.z, coords.heading)
 		ClearPedBloodDamage(ped)
+		if config.showNoti then
+			ShowInfoMsg('~g~You have been respawned successfully!')
+		end
 		if config.armourSetting == 2 or config.armourSetting == 3 then
 			SetPedArmour(ped, config.armourAmount)
-		end
-		if config.showNotification then
-			ShowInfoMsg(config.chatColor .. 'You have respawned at ' .. config.respawnColor .. respawnLocName .. config.chatColor .. '.')
+			if config.debug then
+				Citizen.Trace("[DEBUG] FaxRevive: Player armour set to " .. config.armourAmount .. ".")
+			end
 		end
 		if config.debug then
-			Citizen.Trace("[DEBUG] FaxRevive: Player respawned.")
+			if cHavePerms then
+				Citizen.Trace("[DEBUG] FaxRevive: Player respawned. (Has Staff Permissions)")
+			else
+				Citizen.Trace("[DEBUG] FaxRevive: Player respawned.")
+			end
 		end
 	end
-end
-
-function ShowInfoMsg(text)
-	SetNotificationTextEntry("STRING")
-	AddTextComponentSubstringPlayerName(text)
-	DrawNotification(true, true)
 end
 
 Citizen.CreateThread(function()
@@ -96,14 +114,14 @@ Citizen.CreateThread(function()
                 if timerCount1 == 0 or cHavePerms then
                     revivePed(ped)
 				else
-					TriggerEvent('chat:addMessage', {args = {'^1^*Wait ' .. timerCount1 .. ' more seconds before reviving'}})
+					TriggerEvent('chat:addMessage', { args = {'^*[^1FaxRevive^0]^r Please wait ^2' .. timerCount1 .. '^0 seconds before reviving!'}})
                 end	
             elseif IsControlJustReleased(0, 45) and GetLastInputMethod(0) then
                 if timerCount2 == 0 or cHavePerms then
-					local coords = spawnPoints[math.random(0, #spawnPoints)]
+					local coords = spawnPoints[math.random(1, #spawnPoints)]
 					respawnPed(ped, coords)
 				else
-					TriggerEvent('chat:addMessage', {args = {'^1^*Wait ' .. timerCount2 .. ' more seconds before respawning'}})
+					TriggerEvent('chat:addMessage', { args = {'^*[^1FaxRevive^0]^r Please wait ^2' .. timerCount2 .. '^0 seconds before respawning!'}})
 				end
             end
         end

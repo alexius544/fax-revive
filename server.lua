@@ -2,6 +2,8 @@
 --- FaxRevive, Made by FAXES ---
 --------------------------------
 
+logWebhook = "https://discord.com/api/webhooks/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
 --- Code ---
 if config.usePerms then 
     RegisterServerEvent("FaxRevive:CheckPermission")
